@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
   });
 
   if (req.method === "GET" && req.url === "/") {
-    const bodyView = fs.readFileSync("./views/new-player.html")
+    const bodyView = fs.readFileSync("./index.html")
     res.setHeader("Content-Type", "text/html");
     return res.end(bodyView)
   }
