@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 
+let endtime;
+
 const server = http.createServer((req, res) => {
   let reqBody = '';
 
@@ -37,6 +39,7 @@ const server = http.createServer((req, res) => {
       res.write(home)
       return res.end();
     }
+    
 
   });
 });
