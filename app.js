@@ -8,23 +8,34 @@ const server = http.createServer((req, res) => {
     reqBody += data;
   });
 
-  if (req.method === "GET" && req.url === "/") {
-    const bodyView = fs.readFileSync("./index.html")
-    res.setHeader("Content-Type", "text/html");
-    return res.end(bodyView)
-  }
 
   req.on('end', () => {
     if (reqBody) {
       req.body = reqBody
-        .split("&")
-        .map((keyValuePair) => keyValuePair.split("="))
-        .map(([key, value]) => [key, value.replace(/\+/g, " ")])
-        .map(([key, value]) => [key, decodeURIComponent(value)])
-        .reduce((acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        }, {});
+      .split("&")
+      .map((keyValuePair) => keyValuePair.split("="))
+      .map(([key, value]) => [key, value.replace(/\+/g, " ")])
+      .map(([key, value]) => [key, decodeURIComponent(value)])
+      .reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+    }
+
+    if (req.method === "GET" && req.url === "/") {
+      const home = fs.readFileSync("index.html")
+      res.setStatusCode = 200;
+      res.setHeader("Content-Type", "text/html");
+      res.write(home)
+      return res.end();
+    }
+
+    if (req.method === "GET" && req.url === "/timer") {
+      const home = fs.readFileSync("countdown.html")
+      res.setStatusCode = 200;
+      res.setHeader("Content-Type", "text/html");
+      res.write(home)
+      return res.end();
     }
 
   });
