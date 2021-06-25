@@ -34,13 +34,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function alarm() {
     let audio = document.getElementById('audio')
-    let timer = document.getElementById('timer');
+    let countdown = document.getElementById('countdown');
     let button = document.createElement('button')
     button.innerText = "Stop"
     button.addEventListener("click", () => {
       audio.pause()
     })
-    timer.appendChild(button)
+    countdown.appendChild(button)
+    audio.volume = .2;
     audio.play()
   }
 
