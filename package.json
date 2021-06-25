@@ -13,9 +13,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cellomatt/http-server-countdown-timer/issues"
-  },
-  "homepage": "https://github.com/cellomatt/http-server-countdown-timer#readme"
+  "license": "ISC"
 }
