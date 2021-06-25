@@ -88,11 +88,11 @@ const server = http.createServer((req, res) => {
 
     if (req.method === "POST" && req.url === "/timer") {
       endtime = new Date()
-      console.log(endtime)
+
       let currentHours = endtime.getHours()
       let currentMinutes = endtime.getMinutes()
       let currentSeconds = endtime.getSeconds()
-      console.log(currentHours, currentMinutes, currentSeconds)
+      
       currentHours += Number(req.body.hours)
       currentMinutes += Number(req.body.minutes)
       currentSeconds += Number(req.body.seconds)
