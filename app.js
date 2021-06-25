@@ -55,6 +55,28 @@ const server = http.createServer((req, res) => {
       readStream.pipe(res);
     }
 
+    if (req.url === "/stylesheets/index.css") {
+      var file =  __dirname + "/stylesheets/index.css";
+      var stat = fs.statSync(file);
+      res.writeHead(200, {
+        'Content-Type': 'text/css',
+        'Content-Length': stat.size
+      });
+      var readStream = fs.createReadStream(file);
+      readStream.pipe(res);
+    }
+
+    if (req.url === "/stylesheets/countdown.css") {
+      var file =  __dirname + "/stylesheets/countdown.css";
+      var stat = fs.statSync(file);
+      res.writeHead(200, {
+        'Content-Type': 'text/css',
+        'Content-Length': stat.size
+      });
+      var readStream = fs.createReadStream(file);
+      readStream.pipe(res);
+    }
+
     if (req.method === "GET" && req.url === "/timer") {
       const timer = fs.readFileSync("countdown.html", "utf-8")
       let timeLeft
