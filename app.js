@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
       }, {});
     }
 
-    if (req.method === "GET" && req.url === "/set") {
+    if (req.method === "GET" && req.url === "/") {
       const home = fs.readFileSync("index.html")
       res.setStatusCode = 200;
       res.setHeader("Content-Type", "text/html");
