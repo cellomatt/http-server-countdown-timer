@@ -3,6 +3,19 @@ const fs = require('fs');
 
 let endtime = null;
 
+function msToTime(duration) {
+  var milliseconds = Math.floor((duration % 1000) / 100),
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds;
+}
+
 
 const server = http.createServer((req, res) => {
   let reqBody = '';
@@ -55,10 +68,23 @@ const server = http.createServer((req, res) => {
     }
 
     if (req.method === "GET" && req.url === "/timer") {
-      const timer = fs.readFileSync("countdown.html")
+      const timer = fs.readFileSync("countdown.html", "utf-8")
+      let timeLeft
+      if (endtime === null) {
+        timeLeft = '00:00:00'
+      } else {
+        timeLeft = endtime - new Date()
+        if (timeLeft < 0) {
+          timeLeft = '00:00:00'
+        } else {
+          timeLeft = msToTime(timeLeft)
+        }
+      }
+      const updateTimer = timer
+        .replace(/#{timeLeft}/g, timeLeft)
       res.setStatusCode = 200;
       res.setHeader("Content-Type", "text/html");
-      return res.end(timer);
+      return res.end(updateTimer);
     }
 
     if (req.method === "POST" && req.url === "/timer") {
