@@ -55,17 +55,6 @@ const server = http.createServer((req, res) => {
       readStream.pipe(res);
     }
 
-    if (req.url === "/app.js") {
-      var file =  __dirname + "/app.js";
-      var stat = fs.statSync(file);
-      res.writeHead(200, {
-        'Content-Type': 'text/javascript',
-        'Content-Length': stat.size
-      });
-      var readStream = fs.createReadStream(file);
-      readStream.pipe(res);
-    }
-
     if (req.method === "GET" && req.url === "/timer") {
       const timer = fs.readFileSync("countdown.html", "utf-8")
       let timeLeft
@@ -92,7 +81,7 @@ const server = http.createServer((req, res) => {
       let currentHours = endtime.getHours()
       let currentMinutes = endtime.getMinutes()
       let currentSeconds = endtime.getSeconds()
-      
+
       currentHours += Number(req.body.hours)
       currentMinutes += Number(req.body.minutes)
       currentSeconds += Number(req.body.seconds)

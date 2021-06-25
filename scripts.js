@@ -34,18 +34,19 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateTimer(timer) {
+    setTimeout(()=>{
     const now = new Date()
     const timeLeft = endtime - now
     if (timeLeft >= 0) {
       const newTime = msToTime(timeLeft)
       timer.innerText = newTime;
       console.log("updating!", newTime)
-      setTimeout(()=>{
         updateTimer(timer)
-      }, 300)
+      }
 
-    }
+    }, 500)
   }
+
   updateTimer(timer)
 
 })
