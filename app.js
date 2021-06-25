@@ -4,10 +4,9 @@ const fs = require('fs');
 let endtime = null;
 
 function msToTime(duration) {
-  var milliseconds = Math.floor((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  let seconds = Math.floor((duration / 1000) % 60);
+  let minutes = Math.floor((duration / (1000 * 60)) % 60);
+  let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
   hours = (hours < 10) ? "0" + hours : hours;
   minutes = (minutes < 10) ? "0" + minutes : minutes;
@@ -38,7 +37,7 @@ const server = http.createServer((req, res) => {
       }, {});
     }
 
-    if (req.method === "GET" && req.url === "/") {
+    if (req.method === "GET" && req.url === "/set") {
       const home = fs.readFileSync("index.html")
       res.setStatusCode = 200;
       res.setHeader("Content-Type", "text/html");
