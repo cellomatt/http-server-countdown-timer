@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", () => {
-  console.log("loaded")
 
   const timer = document.getElementById("timer")
   const timeLeft = timer.innerText.split(":")
@@ -33,18 +32,31 @@ window.addEventListener("DOMContentLoaded", () => {
     return hours + ":" + minutes + ":" + seconds;
   }
 
+  function alarm() {
+    let audio = document.getElementById('audio')
+    let timer = document.getElementById('timer');
+    let button = document.createElement('button')
+    button.innerText = "Stop"
+    button.addEventListener("click", () => {
+      audio.pause()
+    })
+    timer.appendChild(button)
+    audio.play()
+  }
+
   function updateTimer(timer) {
     setTimeout(()=>{
     const now = new Date()
     const timeLeft = endtime - now
-    if (timeLeft >= 0) {
+    if (timeLeft > 0) {
       const newTime = msToTime(timeLeft)
       timer.innerText = newTime;
-      console.log("updating!", newTime)
-        updateTimer(timer)
+      updateTimer(timer)
+      } else {
+        alarm()
       }
 
-    }, 500)
+    }, 300)
   }
 
   updateTimer(timer)
